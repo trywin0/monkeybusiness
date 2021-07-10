@@ -43,8 +43,8 @@ if (typeof(Storage) !== "undefined") {
         const balance = parseInt(localStorage.getItem("bananas"))
         const upgradeObject = upgrades.find(u=>u.name===upgrade)
         if(!upgradeObject) return console.log(upgrade);
-        if(balance < upgradeObject.cost) return alert("You do not have enough bananas to purchase that upgrade")
         const upgradesOwned = JSON.parse(localStorage.getItem("upgrades"))
+        if(balance < upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05)) return alert("You do not have enough bananas to purchase that upgrade")
         if(!upgradesOwned[upgrade]) upgradesOwned[upgrade] = 1
         else upgradesOwned[upgrade]++
         const newBalance = balance-upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05)
