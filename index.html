@@ -19,17 +19,22 @@
         </div>
         </div>
     <div class="game">
+        <img src="./banana.png" class="banana" style="display: none;">
         <h1 class="text-center">Monkey Business</h1>
 
         <div class="content">
+
             <div class="info ms-5 mt-5 float-start">
-                <h3 class="d-inline-block"><b>Monkey name:</b> <div class="monkeyname ms-2 float-end"></div></h3>
-                <div class="w-100 mt-3"></div>
-                <h3 class="d-inline-block"><b>Bananas:</b> <div class="bananacount ms-2 float-end"></div></h3>
-                <div class="w-100 mt-3"></div>
-                <h3 class="d-inline-block"><b>BPS:</b> <div class="bps ms-2 float-end"></div></h3>
-                <div class="w-100 mt-3"></div>
-                <button id="name-continue" class="btn border rounded border-dark bg-danger text-light btn-lg" onclick="confirm('Are you sure you want to reset the game?')?!localStorage.clear()&&location.reload():null">Reset game</button>
+                <div class="picture float-start">
+                    <img class="usericon" src="./face.png" alt="">
+                </div>
+                <div class="data float-end">
+                    <h3 class="d-inline-block"><b>Monkey name:</b> <div class="monkeyname ms-2 float-end"></div></h3>
+                    <div class="w-100 mt-3"></div>
+                    <h3 class="d-inline-block"><b>Bananas:</b> <div class="bananacount ms-2 float-end"></div></h3>
+                    <div class="w-100 mt-3"></div>
+                    <h3 class="d-inline-block"><b>BPS:</b> <div class="bps ms-2 float-end"></div></h3>
+                </div>
                 </div>
         
                 <div class="upgrades float-end mt-5 me-3">
@@ -37,6 +42,7 @@
                 </div>
         </div>
 
+        <button id="name-continue" class="resetbtn btn border rounded border-dark bg-danger text-light btn-lg" onclick="confirm('Are you sure you want to reset the game?')?!localStorage.clear()&&location.reload():null">Reset game</button>
 
     </div>
 </body>
