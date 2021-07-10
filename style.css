@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+
+body {
+    background-color: #ffd60a;
+    font-family: 'Otomanopee One', sans-serif !important;
+
+}
+
+input[type="text"].largeinput {
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: #e6e6e6a4;
+    padding: 5px;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+.start>*,
+.game {
+    display: none;
+}
+
+.visible {
+    display: block !important;
+}
+
+.monkey-card {
+    width: fit-content;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.monkey-card>* {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.monkeyimage {
+    width: 150px;
+    margin-right: 20px;
+    margin-bottom: 70px;
+    border-radius: 10px;
+    border: 2px solid rgb(255, 237, 36)
+}
+
+.card {
+    background-color: #ffc300 !important;
+}
