@@ -51,7 +51,7 @@ if (typeof(Storage) !== "undefined") {
         localStorage.setItem("bananas", newBalance)
         localStorage.setItem("upgrades", JSON.stringify(upgradesOwned))
         upgradeObject.div.querySelector(".owned").innerText=`${upgradesOwned[upgrade]} owned`
-        upgradeObject.div.querySelector(".cost").innerText=`${upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05)} Bananas`
+        upgradeObject.div.querySelector(".cost").innerText=`${Math.round(upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05))} Bananas`
 
         monkeyBPS=0
         Object.entries(upgradesOwned||{}).forEach(([uName, amount])=>{
@@ -75,7 +75,7 @@ if (typeof(Storage) !== "undefined") {
                 <h5 class="card-title">${upgrade.name}</h5>
                 <h6 class="card-subtitle mb-2 text-success">${upgrade.bps} BPS</h6>
                 <h6 class="owned card-subtitle text-primary">${upgradesOwned[upgrade.name]||0} owned</h6>
-                <h6 class="card-subtitle d-inline-block"><b>Cost:</b> <div class="cost ms-2 float-end">${upgrade.cost*((upgradesOwned[upgrade]||1)*0.05)} Bananas</div></h3>
+                <h6 class="card-subtitle d-inline-block"><b>Cost:</b> <div class="cost ms-2 float-end">${Math.round(upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05))} Bananas</div></h3>
 
             </div>
               <button onclick="purchase('${upgrade.name}')" class="purchasebtn btn ms-4 border rounded border-dark float-end bg-success text-light btn-m">Purchase</button>
