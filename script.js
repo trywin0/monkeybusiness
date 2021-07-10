@@ -31,8 +31,8 @@ if (typeof(Storage) !== "undefined") {
         } else {
             nameStep.classList.remove("visible")
             localStorage.setItem("name", monkeyNameInput.value)
-            localStorage.setItem("bananas", 10)
-            localStorage.setItem("upgrades", JSON.stringify({Slave: 1}))
+            localStorage.setItem("bananas", 100)
+            localStorage.setItem("upgrades", JSON.stringify({}))
             startGame()
         }
     }
