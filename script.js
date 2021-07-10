@@ -3,6 +3,7 @@ const upgrades = [
     {name: "Robot", bps: 3, cost: 100},
     {name: "Ape", bps: 10, cost: 500},
     {name: "Banana farm", bps: 100, cost: 10000},
+    {name: "Obama", bps: 10000, cost: 1000000},
 ]
 
 
