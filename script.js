@@ -1,154 +1,129 @@
-const upgrades = [
-    {name: "Human", bps: 1, cost: 50},
-    {name: "Robot", bps: 3, cost: 100},
-    {name: "Ape", bps: 10, cost: 500},
-    {name: "Banana farm", bps: 20, cost: 10000},
-    {name: "Banana bank", bps: 100, cost: 1000000},
-    {name: "Banana city", bps: 3000, cost: 10000000},
-    {name: "Banana country", bps: 50000, cost: 100000000},
-]
-class User {
-    getAllData(){
-        return Object.keys(localStorage).reduce(function(obj, str) { 
-            obj[str] = localStorage.getItem(str); 
-            return obj
-        }, {});
-    }
-    setData(key, value){
-        return localStorage.setItem(key,value)
-    }
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+
+body {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+/Edge */
+    user-select: none;
+    /* Standard */
+    background: url("./bg.png");
+    background-size: cover;
+    background-color: #ffd60a;
+    color: #fff;
+    font-family: 'Otomanopee One', sans-serif !important;
+    overflow: hidden;
 }
 
-if (typeof(Storage) !== "undefined") {
-  const user = new User()
-    const nameStep = document.querySelector(".name")
-    const gameDiv = document.querySelector(".game")
-    const nameContinue = document.querySelector("button#name-continue")
-    const monkeyNameInput = document.querySelector('.name > input[type="text"]')
-    const monkeyName = document.querySelector(".monkeyname")
-    const bpsCount = document.querySelector(".bps")
-    const bananaCount = document.querySelector(".bananacount")
-    const upgradesList = document.querySelector(".upgrades")
-    let monkeyBPS = 0
+input[type="text"].largeinput {
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: #e6e6e6a4;
+    padding: 5px;
+}
 
-    if(!localStorage.getItem("name")){
-        nameStep.classList.add("visible")
-    }else{
-        startGame()
-    }
+textarea:focus,
+input:focus {
+    outline: none;
+}
 
+.start>*,
+.game {
+    display: none;
+}
 
-    nameContinue.onclick = () => {
-        if(!monkeyNameInput.value) {
-            alert("You forgot to enter a name for your monkey!")
-        } else {
-            nameStep.classList.remove("visible")
-            localStorage.setItem("name", monkeyNameInput.value)
-            localStorage.setItem("bananas", 100)
-            localStorage.setItem("upgrades", JSON.stringify({}))
-            startGame()
-        }
-    }
+h6 {
+    text-shadow: 2px 2px 6px rgb(0, 0, 0);
 
-    function update(){
-        const upgradesOwned = JSON.parse(user.getAllData()?.upgrades)
-        upgradesList.innerHTML=""
-        upgrades.forEach((upgrade, index)=>{
-            const canAfford = user.getAllData()?.bananas > upgrade.cost*((upgradesOwned[upgrade.name]||1)*0.05)
-            const upgradeDiv = document.createElement("div");
-            upgradeDiv.innerHTML = `
+}
 
-            <div class="card-body">
-              <div class="text float-start">
-                <h5 class="card-title">${upgrade.name}</h5>
-                <h6 class="card-subtitle mb-2 text-warning">${upgrade.bps} BPS</h6>
-                <h6 class="owned card-subtitle text-warning">${upgradesOwned[upgrade.name]||0} owned</h6>
-                <h6 class="card-subtitle d-inline-block"><b>Cost:</b> <div class="cost ms-2 float-end">${Math.round(upgrade.cost*((upgradesOwned[upgrade.name]||1)*0.05))} Bananas</div></h3>
+h1 {
+    text-shadow: 5px 5px 2px #000;
+    font-size: 4em;
+}
 
-            </div>
-              <button  onclick="purchase('${upgrade.name}')" class="purchasebtn btn ms-4 border rounded border-dark float-end bg-${canAfford?"success":"danger disabled"} text-light btn-m">Purchase</button>
-            </div>`
-            upgradeDiv.className="card"
-          const div = upgradesList.appendChild(upgradeDiv);
-          upgrades[index].div = div
-        })
-        monkeyBPS=0
-        Object.entries(upgradesOwned||{}).forEach(([uName, amount])=>{
-            const bps = upgrades.find(u=>u.name===uName)?.bps*amount
-            if(!bps) return;
-            monkeyBPS+=bps
-        })
-        gameDiv.classList.add("visible")
-        monkeyName.innerText = user.getAllData()?.name
-        bananaCount.innerText = parseInt(user.getAllData()?.bananas)
-        bpsCount.innerText = monkeyBPS
-    }
+.cost {
+    color: rgb(56, 238, 39);
+}
 
-    function purchase(upgrade){
-        if(!user.getAllData()?.name) return;
-        const balance = parseInt(user.getAllData()?.bananas)
-        const upgradeObject = upgrades.find(u=>u.name===upgrade)
-        if(!upgradeObject) return console.log(upgrade);
-        const upgradesOwned = JSON.parse(user.getAllData()?.upgrades)
-        if(balance < upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05)) return alert("You do not have enough bananas to purchase that upgrade")
-        const newBalance = balance-upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05)
-        if(!upgradesOwned[upgrade]) upgradesOwned[upgrade] = 1
-        else upgradesOwned[upgrade]++
-        user.setData("bananas", newBalance)
-        user.setData("upgrades", JSON.stringify(upgradesOwned))
+.info {
+    border: 2px solid rgba(219, 219, 219, 0.733);
+    border-radius: 2em;
+    padding: 1em;
+    background-color: rgb(169, 169, 169);
+}
 
-        upgradeObject.div.querySelector(".owned").innerText=`${upgradesOwned[upgrade]} owned`
-        upgradeObject.div.querySelector(".cost").innerText=`${Math.round(upgradeObject.cost*((upgradesOwned[upgrade]||1)*0.05))} Bananas`
+h3>b {
+    color: rgb(29, 29, 29) !important;
+}
 
-        monkeyBPS=0
-        Object.entries(upgradesOwned||{}).forEach(([uName, amount])=>{
-            const bps = upgrades.find(u=>u.name===uName)?.bps*amount
-            if(!bps) return;
-            monkeyBPS+=bps
-        })
-        bpsCount.innerText = parseInt(monkeyBPS)
-        update()
+h3>div {
+    text-shadow: 5px 5px 10px #000;
 
-    }
-    let bananaClicked = false
-    const banana = document.querySelector(".banana")
-    function bananaSuprise(){
-        const delay = Math.floor(Math.random()*100000)
-        const x = Math.floor(Math.random()*window.innerWidth-200)+200
-        const y = Math.floor(Math.random()*window.innerHeight-200)+200
-        setTimeout(() => {
-            bananaClicked=false
-            banana.style.display = "block"
-            banana.className = "banana"
-            banana.style.top = y+"px";
-            banana.style.left = x+"px";
-            setTimeout(() => {
-                if(!bananaClicked){
-                banana.style.display = "none"
-            }
-            }, 3000);
-        }, delay);
+}
+
+.usericon {
+    margin-right: 1em;
+    width: 6em;
+    border-radius: 0.5em;
+
+}
 
 
-    }
-    banana.onclick = () => {
-        bananaClicked = true;
-        banana.style.display = "none"
 
-        const pay = Math.floor(Math.random()*10000)
-        user.setData("bananas", parseInt(user.getAllData()?.bananas)+pay)
-        bananaSuprise()
-    }
-    bananaSuprise()
+.visible {
+    display: block !important;
+}
 
-    function startGame(){
-        
-        setInterval(()=>{
-            localStorage.setItem("bananas",parseInt(localStorage.getItem("bananas"))+parseInt(monkeyBPS))
-            update()
-        }, 1000)
-    }
+.monkey-card {
+    color: #000;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1)
+}
 
-  } else {
-    document.innerHTML = "In order for this game to work your browser has to support Web Storage...";
-  }
+.banana {
+    z-index: 1000;
+    position: absolute;
+    width: 200px;
+}
+
+.monkey-card>* {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.monkeyimage {
+    width: 150px;
+    margin-right: 20px;
+    margin-bottom: 70px;
+    border-radius: 10px;
+    border: 2px solid rgb(255, 237, 36)
+}
+
+.disabled {
+    cursor: not-allowed !important;
+}
+
+.purchasebtn {
+    width: 90%;
+}
+
+.resetbtn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px
+}
+
+.card {
+    display: inline-block;
+    margin: 5px;
+    width: 30%;
+    background-color: #8ca30583 !important;
+}
+
+.upgrades {
+    width: 60%;
+}
